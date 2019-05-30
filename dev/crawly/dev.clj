@@ -11,9 +11,12 @@
   ([handler metadata]
    (swap! servers assoc handler (run-server handler metadata))))
 
-(defn stop-server!
-  [handler]
-  (if-let [server (get @servers handler)]
-    ;; Stop server and remove from global list
-    (do (server) (swap! servers dissoc handler))
-    (println "Error: Trying to stop server that isn't running for handler: " handler)))
+(defn stop-servers!
+  [& handlers]
+  (doseq [handler (or (seq handlers)
+                      (keys @servers))]
+    (if-let [server (get @servers handler)]
+      (do (server)
+          (swap! servers dissoc handler)
+          (println "successfully stopping handler -" handler))
+      (println "Error trying to stop server that isn't running for handler -" handler))))

@@ -1,5 +1,10 @@
 (ns crawly.core
-  (:require [clj-http.client :as client]))
+  (:require [clojure.spec.alpha :as s]
+            [clj-http.client :as client]))
+
+(s/fdef GET
+  :args (s/cat ::url string?)
+  :ret (s/nilable string?))
 
 (defn GET
   [url]
