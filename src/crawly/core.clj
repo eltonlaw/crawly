@@ -6,5 +6,3 @@
   (let [response (client/get url)]
     (if (= (:status response) 200)
       (:body response))))
-
-
