@@ -9,14 +9,21 @@
 (defn start-server!
   ([handler] (start-server! handler {:port 3000 :join? false}))
   ([handler metadata]
-   (swap! servers assoc handler (run-server handler metadata))))
+   (swap! servers assoc handler (run-server handler metadata))
+   (when (some? (get @servers handler))
+     (println "...successfully started server -" handler))))
 
 (defn stop-servers!
   [& handlers]
   (doseq [handler (or (seq handlers)
                       (keys @servers))]
-    (if-let [server (get @servers handler)]
-      (do (server)
-          (swap! servers dissoc handler)
-          (println "successfully stopping handler -" handler))
-      (println "Error trying to stop server that isn't running for handler -" handler))))
+    (when-let [server (get @servers handler)]
+      (server)
+      (swap! servers dissoc handler)
+      (println "...successfully stopping server -" handler))))
+
+(defmacro with-server [bindings body]
+  (let [[server handler] bindings]
+    `(let [~server (start-server! ~handler)]
+      ~body
+      (stop-servers! ~handler))))
