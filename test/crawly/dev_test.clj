@@ -18,3 +18,10 @@
       (is ((complement empty?) @dev/servers))
       (dev/stop-servers!)
       (is (empty? @dev/servers)))))
+
+(deftest with-server
+  (testing "make sure that server only exists within context"
+    (is (empty? @dev/servers))
+    (dev/with-server [server test-handlers/basic]
+      (is ((complement empty?) @dev/servers)))
+    (is (empty? @dev/servers))))
