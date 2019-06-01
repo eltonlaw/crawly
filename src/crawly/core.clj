@@ -3,6 +3,8 @@
             [clj-http.client :as client]
             [taoensso.timbre :refer [info]]))
 
+(defn set-cache-level!)
+
 (s/fdef GET
   :args (s/cat ::url string?)
   :ret (s/nilable string?))
