@@ -3,6 +3,7 @@
   :dependencies '[[adzerk/boot-reload "0.6.0" :scope "test"]
                   [org.clojure/clojure "1.10.0"]
                   [clj-http "3.9.1"]
+                  [com.taoensso/timbre "4.10.0"]
                   [hiccup "1.0.5"]
                   [http-kit "2.3.0"]])
 

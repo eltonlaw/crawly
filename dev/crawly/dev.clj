@@ -1,7 +1,10 @@
 (ns crawly.dev
   (:require [crawly.core :refer :all]
             [crawly.test-handlers :as th]
-            [org.httpkit.server :refer [run-server]]))
+            [org.httpkit.server :refer [run-server]]
+            [taoensso.timbre :as timbre]))
+
+(timbre/set-level! :info)
 
 (def url "http://localhost:3000") ;; Default url
 (def servers (atom {}))
