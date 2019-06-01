@@ -21,3 +21,6 @@
 (deftask dev []
   (comp
     (repl :no-color true :init-ns 'crawly.dev)))
+
+(deftask local-install []
+  (comp (pom) (jar) (install)))
