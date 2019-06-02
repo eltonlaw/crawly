@@ -1,9 +1,15 @@
 (ns crawly.core
   (:require [clojure.spec.alpha :as s]
             [clj-http.client :as client]
+            [crawly.cache :as cache]
             [taoensso.timbre :refer [info]]))
 
-(defn set-cache-level!)
+(defn set-cache-level!
+  [level]
+  (if (s/valid? ::cache/level level)
+    (reset! cache/level level)
+    (throw (ex-info (str "Invalid cache level " level)
+                    {:causes {:level level}}))))
 
 (s/fdef GET
   :args (s/cat ::url string?)
