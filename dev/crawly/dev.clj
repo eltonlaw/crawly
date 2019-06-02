@@ -1,5 +1,6 @@
 (ns crawly.dev
   (:require [crawly.core :refer :all]
+            [crawly.cache :as cache]
             [crawly.test-handlers :as test-handlers]
             [org.httpkit.server :refer [run-server]]
             [taoensso.timbre :as timbre]))
