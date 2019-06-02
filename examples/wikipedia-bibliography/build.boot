@@ -8,4 +8,3 @@
 
 (deftask dev []
   (repl :init-ns 'wikipedia-bibliography.core))
- 

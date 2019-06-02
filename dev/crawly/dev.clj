@@ -28,8 +28,8 @@
    (when (get @servers handler)
      (println "...successfully started server -" handler))))
 
-(defmacro with-server [bindings body]
+(defmacro with-server [bindings & body]
   (let [[server handler] bindings]
     `(let [~server (start-server! ~handler)]
-      ~body
+      (do ~@body)
       (stop-servers! ~handler))))
