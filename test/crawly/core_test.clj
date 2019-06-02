@@ -14,7 +14,7 @@
       (core/set-cache-level! 5)
       (catch Exception e
         (is (= (ex-data e)
-               {:causes {:invalid-level 5}}))))))
+               {:causes {:level 5}}))))))
 
 (deftest GET
   (testing "basic GET request returns body"
