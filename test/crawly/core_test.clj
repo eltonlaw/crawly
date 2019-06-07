@@ -1,7 +1,8 @@
 (ns crawly.core-test
   (:require [clojure.test :refer [deftest is testing]]
             [crawly.cache :as cache]
-            [crawly.core :as core] [crawly.dev :as dev]
+            [crawly.core :as core]
+            [crawly.dev :as dev]
             [crawly.test-handlers :as test-handlers]))
 
 (deftest set-cache-level!
