@@ -26,3 +26,6 @@
       (if (not= (:status response) 200)
         (info "Non 200 response: " response))
       response)))
+
+(defn -main [& args]
+  (println "---- crawly/-main ------"))

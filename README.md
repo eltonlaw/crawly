@@ -15,6 +15,11 @@ Servers to test the scrapers against can be started and stopped
     crawly.dev=> (start-server! th/basic)
     crawly.dev=> (stop-server! th/basic)
 
+Run tests
+
+    boot test
+    clj -A:test
+
 ## Usage
 
 ## Examples
