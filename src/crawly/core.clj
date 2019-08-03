@@ -1,7 +1,8 @@
 (ns crawly.core
   (:require [clojure.spec.alpha :as s]
             [clj-http.client :as client]
-            [crawly.cache :as cache]
+            [crawly.file-cache :as file-cache]
+            [crawly.validate :as validate]
             [taoensso.timbre :refer [info]]))
 
 (defn set-cache-level!
@@ -17,15 +18,10 @@
 
 (defn GET
   [url]
-  (if (and (= @cache/level :aggressive)
-           (cache/cached? url))
-    (cache/load-response url)
-    (let [response (client/get url)]
-      (if (= @cache/level :aggressive)
-        (cache/add url response))
-      (if (not= (:status response) 200)
-        (info "Non 200 response: " response))
-      response)))
+  (let [response (or (file-cache/lookup url)
+                     (client/get url))]
+    (cache/add! url response)
+    (validate/conform response)))
 
 (defn -main [& args]
   (println "---- crawly/-main ------"))

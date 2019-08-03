@@ -1,4 +1,4 @@
-(ns crawly.cache
+(ns crawly.file-cache
   (:require [clojure.spec.alpha :as s]
             [clojure.java.io :as io]
             [taoensso.timbre :refer [debug]]))
@@ -19,19 +19,22 @@
   [url]
   (-> (tempfile-path url) io/as-file .exists))
 
-(defn add
+(defn add!
   "Get full file path, make parent dir if required and write html file"
   [url response]
   (debug "...adding response to cache for:" url)
-  (let [fpath (tempfile-path url)]
-    (io/make-parents fpath)
-    (spit fpath response)))
+  (if (= @level :aggressive)
+    (let [fpath (tempfile-path url)]
+      (io/make-parents fpath)
+      (spit fpath response))))
 
-(defn load-response
-  "Reads file from cache"
+(defn lookup
+  "Read file from cache if conditions pass and return nil otherwise"
   [url]
   (debug "...loading response from cache for:" url)
-  (-> (tempfile-path url) slurp))
+  (if (and (= @level :aggressive)
+           (cached? url))
+    (-> (tempfile-path url) slurp)))
 
 (defn delete-dir-files [fname]
   (doseq [f (-> fname io/file .listFiles)]
