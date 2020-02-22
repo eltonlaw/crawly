@@ -1,0 +1,3 @@
+;; :watch-dirs ["dev" "target"]
+^{:css-dirs ["resources/public/css"]}
+{:main crawly.web}
