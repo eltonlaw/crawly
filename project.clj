@@ -6,6 +6,8 @@
   :global-vars {*warn-on-reflection* true}
   :resource-paths #{"src" "dev"}
   :test-paths ["test"]
+  :test-selectors {:default (complement :integration)
+                   :integration :integration}
   :dependencies [[com.taoensso/timbre "4.10.0"] ;
                  [org.clojure/tools.reader"1.3.2"]
                  [etaoin "0.3.6"]
