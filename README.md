@@ -16,6 +16,10 @@ Unit tests are just
 
 ## Usage
 
+Environment variables:
+
+* `CRAWLY_REQUEST_LOG`: Path to list of requests file
+* `CRAWLY_LOG`: Path to log file
 ## License
 
 Distributed under the MIT License.

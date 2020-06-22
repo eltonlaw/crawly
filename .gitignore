@@ -11,7 +11,7 @@ pom.xml.asc
 .hg/
 .nrepl-history
 .cpcache/
-crawly.log
+*.log
 crawly-downloads/
 .classpath
 .project
